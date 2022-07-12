@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Searchbar } from './Searchbar';
+import { Searchbar } from './components/Searchbar';
 
 export class App extends Component {
   // state = {
