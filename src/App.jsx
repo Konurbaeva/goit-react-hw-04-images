@@ -9,27 +9,17 @@ export class App extends Component {
     searchQuery: '',
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.searchQuery !== this.props.searchQuery) {
-  //     fetchImagesWithQuery()
-  //       .then(response => {
-  //         if (response) {
-  //           console.log('response: ', response);
-  //           return response;
-  //         }
-  //       })
-  //       .then(searchQuery => this.setState({ searchQuery: searchQuery }));
-  //   }
-  // }
-  componentDidMount() {
-    fetchImagesWithQuery('cat')
-      .then(response => {
-        if (response) {
-          console.log('response: ', response);
-          return response;
-        }
-      })
-      .then(searchQuery => this.setState({ searchQuery: searchQuery }));
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.searchQuery !== this.state.searchQuery) {
+      fetchImagesWithQuery(this.state.searchQuery)
+        .then(response => {
+          if (response) {
+            console.log('response: ', response);
+            return response;
+          }
+        })
+        .then(searchQuery => this.setState({ searchQuery: searchQuery }));
+    }
   }
 
   handleFormSubmit = queryFromSearchbar => {
