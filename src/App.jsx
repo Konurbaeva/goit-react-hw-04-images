@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ImageGallery } from './components/ImageGallery';
 import { Searchbar } from './components/Searchbar';
+import { Button } from './components/Button';
 
 import { fetchImagesWithQuery } from './services/api';
 
@@ -58,6 +59,7 @@ export class App extends Component {
         <h1>Test</h1>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery images={this.state.hits} />
+        <Button />
       </>
     );
   }
