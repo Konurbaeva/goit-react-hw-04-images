@@ -81,7 +81,6 @@ export class App extends Component {
           'No results'
         )}
         <Button onClick={this.loadMore} />
-        {/* <button onClick={this.loadMore}>Load more</button> */}
       </>
     );
   }
