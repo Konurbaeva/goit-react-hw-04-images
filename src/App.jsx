@@ -1,3 +1,4 @@
+import { Button } from 'components/Button';
 import { Component } from 'react';
 // import { ImageGallery } from './components/ImageGallery';
 
@@ -36,7 +37,6 @@ export class App extends Component {
 
     this.setState({ isLoading: true });
 
-    // fetchImagesWithQuery = async (searchQuery, per_page = 3, page)
     fetchImagesWithQuery(this.state.searchQuery, per_page, page)
       .then(hits => {
         this.setState(prevState => ({
@@ -80,8 +80,8 @@ export class App extends Component {
         ) : (
           'No results'
         )}
-        {/* <Button /> */}
-        <button onClick={this.loadMore}>Load more</button>
+        <Button onClick={this.loadMore} />
+        {/* <button onClick={this.loadMore}>Load more</button> */}
       </>
     );
   }

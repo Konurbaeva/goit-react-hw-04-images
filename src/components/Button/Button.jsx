@@ -1,3 +1,7 @@
-export const Button = () => {
-  return <button type="submit">Load more</button>;
+export const Button = ({ onClick }) => {
+  return (
+    <button type="submit" onClick={onClick}>
+      Load more
+    </button>
+  );
 };
