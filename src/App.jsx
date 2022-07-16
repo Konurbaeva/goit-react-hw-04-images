@@ -32,10 +32,11 @@ export class App extends Component {
   }
 
   loadResults = () => {
-    const { page, per_page } = this.state;
+    const { per_page, page } = this.state;
 
     this.setState({ isLoading: true });
 
+    // fetchImagesWithQuery = async (searchQuery, per_page = 3, page)
     fetchImagesWithQuery(this.state.searchQuery, per_page, page)
       .then(hits => {
         this.setState(prevState => ({
