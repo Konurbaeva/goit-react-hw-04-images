@@ -1,23 +1,21 @@
-// export const ImageGallery = ({ images }) => {
-//   return (
-//     <ul className="gallery">
-//       {images.map(({ id, webformatURL, largeImageURL }) => (
-//         <li className="gallery-item" key={id}>
-//           <img src={webformatURL} alt="" />
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// };
+// import { ImageGalleryItem } from './ImageGalleryItem';
 
-export const ImageGallery = ({ images }) => {
+import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+
+function ImageGallery({ images, openModal }) {
   return (
-    <ul className="gallery">
-      {images.map(({ id, webformatURL, largeImageURL }) => (
-        <li className="gallery-item" key={id}>
-          <img src={webformatURL} alt="" />
-        </li>
+    <ul>
+      {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+        <ImageGalleryItem
+          key={id}
+          webImage={webformatURL}
+          description={tags}
+          openModal={openModal}
+          largeImageURL={largeImageURL}
+        />
       ))}
     </ul>
   );
-};
+}
+
+export default ImageGallery;

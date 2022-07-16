@@ -1,5 +1,7 @@
 import { Component } from 'react';
-import { ImageGallery } from './components/ImageGallery';
+// import { ImageGallery } from './components/ImageGallery';
+
+import ImageGallery from './components/ImageGallery/ImageGallery';
 import { Searchbar } from './components/Searchbar';
 // import { Button } from './components/Button';
 
@@ -14,6 +16,8 @@ export class App extends Component {
     page: 1,
     errorMsg: '',
     isLoading: false,
+    showModal: false,
+    modalImage: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -59,12 +63,22 @@ export class App extends Component {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
   render() {
     return (
       <>
         <h1>Test</h1>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery images={this.state.hits} />
+        {this.state.hits.length > 0 ? (
+          <ImageGallery images={this.state.hits} />
+        ) : (
+          'No results'
+        )}
         {/* <Button /> */}
         <button onClick={this.loadMore}>Load more</button>
       </>
