@@ -71,15 +71,12 @@ export class App extends Component {
   };
 
   render() {
+    const { hits } = this.state;
     return (
       <>
         <h1>Test</h1>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {this.state.hits.length > 0 ? (
-          <ImageGallery images={this.state.hits} />
-        ) : (
-          'No results'
-        )}
+        {hits.length > 0 ? <ImageGallery images={hits} /> : 'No results'}
         <Button onClick={this.loadMore} />
       </>
     );
