@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { ImageGallery } from './components/ImageGallery';
 import { Searchbar } from './components/Searchbar';
-import { Button } from './components/Button';
+// import { Button } from './components/Button';
 
 import { fetchImagesWithQuery } from './services/api';
 
@@ -49,6 +49,12 @@ export class App extends Component {
       });
   };
 
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
   handleFormSubmit = queryFromSearchbar => {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
@@ -59,7 +65,8 @@ export class App extends Component {
         <h1>Test</h1>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery images={this.state.hits} />
-        <Button />
+        {/* <Button /> */}
+        <button onClick={this.loadMore}>Load more</button>
       </>
     );
   }
