@@ -7,12 +7,11 @@ export class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(' handleSubmit is trigerred: ');
+
     this.props.onSubmit(this.state.searchQuery);
   };
 
   handleChange(e) {
-    // this.setState({ searchQuery: e.target.value });
     this.setState({ searchQuery: e.currentTarget.value });
   }
 
@@ -28,7 +27,6 @@ export class Searchbar extends Component {
               autoFocus
               placeholder="Search images and photos"
               value={this.state.searchQuery}
-              // onChange={this.handleChange}
               onChange={e => this.handleChange(e)}
             />
             <button type="submit" className="button">
