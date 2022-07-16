@@ -11,7 +11,6 @@
 // };
 
 export const ImageGallery = ({ images }) => {
-  console.log('images: ', images);
   return (
     <ul className="gallery">
       {images.map(({ id, webformatURL, largeImageURL }) => (

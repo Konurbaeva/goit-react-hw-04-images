@@ -8,44 +8,45 @@ export class App extends Component {
   state = {
     hits: [],
     searchQuery: '',
-    isLoading: false,
     pictures: [],
     totalHits: '',
+    page: 1,
+    errorMsg: '',
+    isLoading: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const prevPage = prevState.page;
     const nextPage = this.state.page;
+    const prevsearchQuery = prevState.searchQuery;
+    const searchQuery = this.state.searchQuery;
 
-    if (prevPage !== nextPage) {
-      // this.loadResults();
-      this.setState({ isLoading: true });
-      fetchImagesWithQuery(this.state.searchQuery).then(response => {
-        console.log('RESPONSE', response);
-        this.setState({ hits: response.hits });
-      });
+    if (prevPage !== nextPage || prevsearchQuery !== searchQuery) {
+      this.loadResults();
     }
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   this.setState({ isLoading: true });
-  //   if (prevState.searchQuery !== this.state.searchQuery) {
-  //     try {
-  //       const hits = fetchImagesWithQuery(this.state.searchQuery).then(hits =>
-  //         this.setState(prevState => ({
-  //           pictures: [...prevState.pictures, ...hits],
-  //           totalHits: hits.data.totalHits,
-  //         }))
-  //       );
+  loadResults = () => {
+    const { page, per_page } = this.state;
 
-  //       this.setState({ hits: hits });
-  //     } catch (error) {
-  //       this.setState({ error });
-  //     } finally {
-  //       this.setState({ isLoading: false });
-  //     }
-  //   }
-  // }
+    this.setState({ isLoading: true });
+
+    fetchImagesWithQuery(this.state.searchQuery, per_page, page)
+      .then(hits => {
+        this.setState(prevState => ({
+          hits: [...prevState.hits, ...hits],
+          errorMsg: '',
+        }));
+      })
+      .catch(error =>
+        this.setState({
+          errorMsg: 'Error while loading data. Try again later.',
+        })
+      )
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
+  };
 
   handleFormSubmit = queryFromSearchbar => {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
