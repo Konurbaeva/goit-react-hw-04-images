@@ -9,6 +9,7 @@ export class Searchbar extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state.searchQuery);
+    this.setState({ searchQuery: '' });
   };
 
   handleChange(e) {
