@@ -1,7 +1,5 @@
-import { Button } from 'components/Button';
 import { Component } from 'react';
-// import { ImageGallery } from './components/ImageGallery';
-
+import { Button } from 'components/Button';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import { Searchbar } from './components/Searchbar';
 // import { Button } from './components/Button';
@@ -64,10 +62,8 @@ export class App extends Component {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+  openModal = () => {
+    console.log('openModal cliked');
   };
 
   render() {
@@ -76,7 +72,11 @@ export class App extends Component {
       <>
         <h1>Test</h1>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {hits.length > 0 ? <ImageGallery images={hits} /> : 'No results'}
+        {hits.length > 0 ? (
+          <ImageGallery images={hits} openModal={this.openModal} />
+        ) : (
+          'No results'
+        )}
         <Button onClick={this.loadMore} />
       </>
     );
