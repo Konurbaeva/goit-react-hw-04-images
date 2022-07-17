@@ -5,6 +5,8 @@ import { Searchbar } from './components/Searchbar';
 // import { Button } from './components/Button';
 
 import { fetchImagesWithQuery } from './services/api';
+// import { Modal } from 'components/Modal';
+import Modal from 'components/Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -62,16 +64,13 @@ export class App extends Component {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
 
-  openModal = () => {
-    console.log('openModal cliked');
-  };
-
   render() {
-    const { hits } = this.state;
+    const { hits, showModal } = this.state;
     return (
       <>
         <h1>Test</h1>
         <Searchbar onSubmit={this.handleFormSubmit} />
+        {showModal && <Modal />}
         {hits.length > 0 ? (
           <ImageGallery images={hits} openModal={this.openModal} />
         ) : (

@@ -1,45 +1,3 @@
-// import { Component } from 'react';
-
-// export class Searchbar extends Component {
-//   state = {
-//     searchQuery: '',
-//   };
-
-//   handleSubmit = e => {
-//     e.preventDefault();
-
-//     this.props.onSubmit(this.state.searchQuery);
-//     this.setState({ searchQuery: '' });
-//   };
-
-//   handleChange(e) {
-//     this.setState({ searchQuery: e.currentTarget.value });
-//   }
-
-//   render() {
-//     return (
-//       <>
-//         <header className="searchbar">
-//           <form className="form" onSubmit={this.handleSubmit}>
-//             <input
-//               className="input"
-//               type="text"
-//               autoComplete="off"
-//               autoFocus
-//               placeholder="Search images and photos"
-//               value={this.state.searchQuery}
-//               onChange={e => this.handleChange(e)}
-//             />
-//             <button type="submit" className="button">
-//               <span className="button-label">Search</span>
-//             </button>
-//           </form>
-//         </header>
-//       </>
-//     );
-//   }
-// }
-
 import { Component } from 'react';
 import styled from 'styled-components';
 
@@ -77,7 +35,7 @@ const SearchFormButton = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+  // background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
