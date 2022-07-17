@@ -21,7 +21,12 @@ const ImageGalleryItemImageStyled = styled.img`
 function ImageGalleryItem({ webImage, openModal, description, largeImageURL }) {
   return (
     <ImageGalleryItemStyled>
-      <ImageGalleryItemImageStyled src={webImage} alt={description} />
+      <ImageGalleryItemImageStyled
+        src={webImage}
+        alt={description}
+        // openModal={() => console.log('openModal clicked')}
+        openModal={() => openModal(largeImageURL)}
+      />
     </ImageGalleryItemStyled>
   );
 }

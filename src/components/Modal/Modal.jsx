@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import styled from 'styled-components';
 
 const ModalStyled = styled.div`
@@ -18,14 +19,25 @@ const OverlayStyled = styled.div`
   z-index: 1200;
 `;
 
-function Modal() {
-  return (
-    <>
-      <OverlayStyled className="overlay">
-        <ModalStyled>Overlay Text</ModalStyled>
-      </OverlayStyled>
-    </>
-  );
+// function Modal() {
+//   return (
+//     <>
+//       <OverlayStyled className="overlay">
+//         <ModalStyled>Overlay Text</ModalStyled>
+//       </OverlayStyled>
+//     </>
+//   );
+// }
+class Modal extends Component {
+  render() {
+    return (
+      <>
+        <OverlayStyled className="overlay">
+          <ModalStyled>{this.props.children}</ModalStyled>
+        </OverlayStyled>
+      </>
+    );
+  }
 }
 
 export default Modal;

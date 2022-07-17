@@ -64,17 +64,25 @@ export class App extends Component {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
 
+  toggleModal = () => {
+    console.log('toggle modal was clicked');
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
+    }));
+  };
+
   render() {
     const { hits, showModal } = this.state;
     return (
       <>
-        <h1>Test</h1>
+        <button type="button" onClick={this.toggleModal}>
+          Open modal
+        </button>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {showModal && <Modal />}
-        {hits.length > 0 ? (
-          <ImageGallery images={hits} openModal={this.openModal} />
-        ) : (
-          'No results'
+        {/* {showModal && <Modal />} */}
+        {showModal && <Modal>here modal content</Modal>}
+        {hits.length > 0 && (
+          <ImageGallery images={hits} openModal={this.toggleModal} />
         )}
         <Button onClick={this.loadMore} />
       </>
