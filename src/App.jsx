@@ -2,10 +2,8 @@ import { Component } from 'react';
 import { Button } from 'components/Button';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import { Searchbar } from './components/Searchbar';
-// import { Button } from './components/Button';
 
 import { fetchImagesWithQuery } from './services/api';
-// import { Modal } from 'components/Modal';
 import Modal from 'components/Modal/Modal';
 
 export class App extends Component {
@@ -17,8 +15,7 @@ export class App extends Component {
     page: 1,
     errorMsg: '',
     isLoading: false,
-    showModal: false,
-    modalImage: null,
+    activeImg: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -64,27 +61,29 @@ export class App extends Component {
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
 
-  toggleModal = () => {
-    console.log('toggle modal was clicked');
-    this.setState(prevState => ({
-      showModal: !prevState.showModal,
-    }));
+  setActiveImg = imageUrl => {
+    this.setState({
+      activeImg: imageUrl,
+    });
   };
 
   render() {
-    const { hits, showModal } = this.state;
+    const { hits, activeImg } = this.state;
     return (
       <>
-        <button type="button" onClick={this.toggleModal}>
-          Open modal
-        </button>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {/* {showModal && <Modal />} */}
-        {showModal && <Modal>here modal content</Modal>}
         {hits.length > 0 && (
-          <ImageGallery images={hits} openModal={this.toggleModal} />
+          <ImageGallery images={hits} openModal={this.setActiveImg} />
         )}
-        <Button onClick={this.loadMore} />
+        {hits.length > 0 && <Button onClick={this.loadMore} />}
+        {activeImg && (
+          <Modal
+            largeImageURL={activeImg}
+            onClose={() => this.setActiveImg(null)}
+          >
+            <img src={activeImg} alt="" />
+          </Modal>
+        )}
       </>
     );
   }

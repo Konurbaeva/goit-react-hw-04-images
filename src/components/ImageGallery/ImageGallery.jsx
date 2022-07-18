@@ -30,19 +30,4 @@ function ImageGallery({ images, openModal }) {
   );
 }
 
-// function ImageGallery({ images }) {
-//   return (
-//     <ImageGalleryStyled>
-//       {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-//         <ImageGalleryItem
-//           key={id}
-//           webImage={webformatURL}
-//           description={tags}
-//           largeImageURL={largeImageURL}
-//         />
-//       ))}
-//     </ImageGalleryStyled>
-//   );
-// }
-
 export default ImageGallery;

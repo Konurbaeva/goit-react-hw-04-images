@@ -1,41 +1,62 @@
 import { Component } from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
-const ModalStyled = styled.div`
+const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /*  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalContent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
 `;
 
-const OverlayStyled = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1200;
-`;
+const modalRoot = document.querySelector('#modal-root');
 
-// function Modal() {
-//   return (
-//     <>
-//       <OverlayStyled className="overlay">
-//         <ModalStyled>Overlay Text</ModalStyled>
-//       </OverlayStyled>
-//     </>
-//   );
-// }
 class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  handleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      this.props.onClose();
+    }
+  };
+
+  closeModal = () => {
+    this.props.onClose();
+  };
+
   render() {
-    return (
-      <>
-        <OverlayStyled className="overlay">
-          <ModalStyled>{this.props.children}</ModalStyled>
-        </OverlayStyled>
-      </>
+    return createPortal(
+      <Backdrop onClick={this.handleBackdropClick}>
+        <ModalContent>{this.props.children}</ModalContent>
+      </Backdrop>,
+      modalRoot
     );
   }
 }
