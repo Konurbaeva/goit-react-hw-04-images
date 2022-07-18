@@ -70,8 +70,6 @@ export class App extends Component {
     });
   };
 
-  // Loader
-
   render() {
     const { hits, activeImg, isLoading } = this.state;
     return (

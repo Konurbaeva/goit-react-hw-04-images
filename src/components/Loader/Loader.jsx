@@ -5,7 +5,7 @@ import { LoaderStyled } from './Loader.styled';
 export const Loader = () => {
   return (
     <LoaderStyled>
-      <ThreeDots color="#00BFFF" height={80} width={80} radius="9" />
+      <ThreeDots color="#ff007b" height={80} width={80} radius="9" />
     </LoaderStyled>
   );
 };
