@@ -5,7 +5,6 @@ import { Searchbar } from './components/Searchbar';
 
 import { fetchImagesWithQuery } from './services/api';
 import Modal from 'components/Modal/Modal';
-// import Loader from 'components/Loader/Loader';
 
 import { Loader } from 'components/Loader/Loader';
 
