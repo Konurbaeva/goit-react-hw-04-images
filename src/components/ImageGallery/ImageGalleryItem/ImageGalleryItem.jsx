@@ -24,8 +24,9 @@ function ImageGalleryItem({ webImage, openModal, description, largeImageURL }) {
       <ImageGalleryItemImageStyled
         src={webImage}
         alt={description}
-        // openModal={() => console.log('openModal clicked')}
-        openModal={() => openModal(largeImageURL)}
+        onClick={() => {
+          openModal(largeImageURL);
+        }}
       />
     </ImageGalleryItemStyled>
   );
