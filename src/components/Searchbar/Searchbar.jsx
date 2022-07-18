@@ -6,6 +6,13 @@ import {
   SearchFormButton,
   SearchFormButtonLabel,
 } from './Searchbar.styled';
+import { ImSearch } from 'react-icons/im';
+import styled from 'styled-components';
+
+const SearchSvg = styled(ImSearch)`
+  width: 20px;
+  height: 20px;
+`;
 
 export class Searchbar extends Component {
   state = {
@@ -41,6 +48,7 @@ export class Searchbar extends Component {
               <SearchFormButtonLabel className="button-label">
                 Search
               </SearchFormButtonLabel>
+              <SearchSvg />
             </SearchFormButton>
           </SearchForm>
         </SearchbarStyled>
