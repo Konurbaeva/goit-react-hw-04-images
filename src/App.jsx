@@ -5,6 +5,9 @@ import { Searchbar } from './components/Searchbar';
 
 import { fetchImagesWithQuery } from './services/api';
 import Modal from 'components/Modal/Modal';
+// import Loader from 'components/Loader/Loader';
+
+import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -67,11 +70,14 @@ export class App extends Component {
     });
   };
 
+  // Loader
+
   render() {
-    const { hits, activeImg } = this.state;
+    const { hits, activeImg, isLoading } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
+        {isLoading && <Loader />}
         {hits.length > 0 && (
           <ImageGallery images={hits} openModal={this.setActiveImg} />
         )}
