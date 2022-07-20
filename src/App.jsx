@@ -61,15 +61,9 @@ export class App extends Component {
   };
 
   handleFormSubmit = searchQuery => {
-    // this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
     this.setState({ searchQuery, page: 1 });
   };
 
-  // setActiveImg = imageUrl => {
-  //   this.setState({
-  //     activeImg: imageUrl,
-  //   });
-  // };
   setActiveImg = activeImg => {
     this.setState({
       activeImg,
