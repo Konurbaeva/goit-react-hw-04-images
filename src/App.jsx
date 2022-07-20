@@ -33,25 +33,26 @@ export class App extends Component {
 
   loadResults = () => {
     const { searchQuery, per_page, page } = this.state;
-
     this.setState({ isLoading: true });
 
-    fetchImagesWithQuery(searchQuery, per_page, page)
-      .then(hits => {
-        this.setState(prevState => ({
-          hits: [...prevState.hits, ...hits],
-          // page > 1 ? [...prevState.hits, ...hits]: hits,
-          errorMsg: '',
-        }));
-      })
-      .catch(error =>
-        this.setState({
-          errorMsg: 'Error while loading data. Try again later.',
+    try {
+      fetchImagesWithQuery(searchQuery, per_page, page)
+        .then(hits => {
+          this.setState(prevState => ({
+            hits: page > 1 ? [...prevState.hits, ...hits] : hits,
+          }));
         })
-      )
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
+        .catch(error =>
+          this.setState({
+            errorMsg: 'Error while loading data. Try again later.',
+          })
+        )
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   loadMore = () => {
