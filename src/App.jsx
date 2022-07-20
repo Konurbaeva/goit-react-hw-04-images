@@ -32,14 +32,15 @@ export class App extends Component {
   }
 
   loadResults = () => {
-    const { per_page, page } = this.state;
+    const { searchQuery, per_page, page } = this.state;
 
     this.setState({ isLoading: true });
 
-    fetchImagesWithQuery(this.state.searchQuery, per_page, page)
+    fetchImagesWithQuery(searchQuery, per_page, page)
       .then(hits => {
         this.setState(prevState => ({
           hits: [...prevState.hits, ...hits],
+          // page > 1 ? [...prevState.hits, ...hits]: hits,
           errorMsg: '',
         }));
       })
@@ -60,6 +61,7 @@ export class App extends Component {
   };
 
   handleFormSubmit = queryFromSearchbar => {
+    // this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
     this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
   };
 
