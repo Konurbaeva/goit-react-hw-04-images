@@ -60,14 +60,19 @@ export class App extends Component {
     }));
   };
 
-  handleFormSubmit = queryFromSearchbar => {
+  handleFormSubmit = searchQuery => {
     // this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
-    this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
+    this.setState({ searchQuery, page: 1 });
   };
 
-  setActiveImg = imageUrl => {
+  // setActiveImg = imageUrl => {
+  //   this.setState({
+  //     activeImg: imageUrl,
+  //   });
+  // };
+  setActiveImg = activeImg => {
     this.setState({
-      activeImg: imageUrl,
+      activeImg,
     });
   };
 
