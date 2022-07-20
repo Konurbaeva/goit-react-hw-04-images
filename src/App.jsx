@@ -26,6 +26,10 @@ export class App extends Component {
     const prevsearchQuery = prevState.searchQuery;
     const searchQuery = this.state.searchQuery;
 
+    if (searchQuery === '') {
+      return;
+    }
+
     if (prevPage !== nextPage || prevsearchQuery !== searchQuery) {
       this.loadResults();
     }
@@ -80,6 +84,7 @@ export class App extends Component {
         {hits.length > 0 && (
           <ImageGallery images={hits} openModal={this.setActiveImg} />
         )}
+
         {hits.length > 0 && <Button onClick={this.loadMore} />}
         {activeImg && (
           <Modal
