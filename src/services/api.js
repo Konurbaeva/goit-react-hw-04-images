@@ -1,5 +1,5 @@
 import axios from "axios";
-import settings from "./constants";
+import settings from "../constants/constants";
 
 const { BASE_URL, API_KEY } = settings;
 
