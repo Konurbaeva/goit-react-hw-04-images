@@ -33,9 +33,9 @@ export class Searchbar extends Component {
   render() {
     return (
       <>
-        <SearchbarStyled className="searchbar">
-          <SearchForm className="form" onSubmit={this.handleSubmit}>
-            <SearchFormInput
+        <header className="searchbar">
+          <form className="form" onSubmit={this.handleSubmit}>
+            <input
               className="input"
               type="text"
               autoComplete="off"
@@ -44,14 +44,12 @@ export class Searchbar extends Component {
               value={this.state.searchQuery}
               onChange={e => this.handleChange(e)}
             />
-            <SearchFormButton type="submit" className="button">
-              <SearchFormButtonLabel className="button-label">
-                Search
-              </SearchFormButtonLabel>
+            <button type="submit" className="button">
+              <span className="button-label">Search</span>
               <SearchSvg />
-            </SearchFormButton>
-          </SearchForm>
-        </SearchbarStyled>
+            </button>
+          </form>
+        </header>
       </>
     );
   }
