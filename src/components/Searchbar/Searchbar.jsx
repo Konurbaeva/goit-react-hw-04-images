@@ -47,7 +47,7 @@ export class Searchbar extends Component {
 
     if (this.state.searchQuery.trim() === '') {
       toast.error('The input field is empty!', {
-        position: 'top-right',
+        position: 'top-left',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -55,8 +55,6 @@ export class Searchbar extends Component {
         draggable: true,
         progress: undefined,
         theme: 'dark',
-        width: 4.0,
-        height: 4.0,
       });
 
       return;
@@ -99,7 +97,7 @@ export class Searchbar extends Component {
                   <SearchSvg />
                 </button>
               </Form>
-              <ToastContainer />
+              <ToastContainer style={{ width: '5%', height: '5%' }} />
             </>
           )}
         </Formik>
