@@ -1,18 +1,26 @@
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify';
 import { Component } from 'react';
-import {
-  SearchbarStyled,
-  SearchForm,
-  SearchFormInput,
-  SearchFormButton,
-  SearchFormButtonLabel,
-} from './Searchbar.styled';
 import { ImSearch } from 'react-icons/im';
 import styled from 'styled-components';
+// import {
+//   SearchbarStyled,
+//   SearchForm,
+//   SearchFormInput,
+//   SearchFormButton,
+//   SearchFormButtonLabel,
+// } from './Searchbar.styled';
 
 const SearchSvg = styled(ImSearch)`
   width: 20px;
   height: 20px;
 `;
+
+const initialValues = { searchQuery: '' };
+const schema = yup.object().shape({
+  searchQuery: yup.string().required(),
+});
 
 export class Searchbar extends Component {
   state = {
@@ -22,34 +30,79 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    // if (this.state.searchQuery === '') {
+    //   toast.error('The input field is empty!', {
+    //     position: 'top-right',
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: 'dark',
+    //   });
+
+    //   return;
+    // }
+
+    if (this.state.searchQuery.trim() === '') {
+      toast.error('The input field is empty!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        width: 4.0,
+        height: 4.0,
+      });
+
+      return;
+    }
+
     this.props.onSubmit(this.state.searchQuery);
     this.setState({ searchQuery: '' });
   };
 
-  handleChange(e) {
+  handleChange = e => {
     this.setState({ searchQuery: e.currentTarget.value });
-  }
+  };
 
   render() {
+    const { searchQuery } = this.state;
     return (
       <>
-        <header className="searchbar">
-          <form className="form" onSubmit={this.handleSubmit}>
-            <input
-              className="input"
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search images and photos"
-              value={this.state.searchQuery}
-              onChange={e => this.handleChange(e)}
-            />
-            <button type="submit" className="button">
-              <span className="button-label">Search</span>
-              <SearchSvg />
-            </button>
-          </form>
-        </header>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={schema}
+          onSubmit={this.handleSubmit}
+        >
+          {props => (
+            <>
+              <Form className="form" onSubmit={this.handleSubmit}>
+                <Field
+                  className="input"
+                  name="searchQuery"
+                  type="text"
+                  autoComplete="off"
+                  autoFocus
+                  placeholder="Search images and photos"
+                  // value={props.values.searchQuery}
+                  value={searchQuery}
+                  onChange={this.handleChange}
+                  // onChange={e => this.handleChange(e)}
+                />
+                <button type="submit" className="button">
+                  <span className="button-label">Search</span>
+                  <SearchSvg />
+                </button>
+              </Form>
+              <ToastContainer />
+            </>
+          )}
+        </Formik>
       </>
     );
   }
