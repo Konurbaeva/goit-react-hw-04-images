@@ -1,16 +1,16 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
 import styled from 'styled-components';
-// import {
-//   SearchbarStyled,
-//   SearchForm,
-//   SearchFormInput,
-//   SearchFormButton,
-//   SearchFormButtonLabel,
-// } from './Searchbar.styled';
+import {
+  SearchbarStyled,
+  SearchForm,
+  SearchFormInput,
+  SearchFormButtonLabel,
+  SearchFormButton,
+} from './Searchbar.styled';
 
 const SearchSvg = styled(ImSearch)`
   width: 20px;
@@ -19,7 +19,7 @@ const SearchSvg = styled(ImSearch)`
 
 const initialValues = { searchQuery: '' };
 const schema = yup.object().shape({
-  searchQuery: yup.string().required(),
+  searchQuery: yup.string().required('Name is required.'),
 });
 
 export class Searchbar extends Component {
@@ -30,24 +30,9 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    // if (this.state.searchQuery === '') {
-    //   toast.error('The input field is empty!', {
-    //     position: 'top-right',
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: 'dark',
-    //   });
-
-    //   return;
-    // }
-
     if (this.state.searchQuery.trim() === '') {
       toast.error('The input field is empty!', {
-        //autoClose: 2000,
+        // autoClose: 2000,
         autoClose: true,
         position: 'top-right',
         hideProgressBar: false,
@@ -55,6 +40,9 @@ export class Searchbar extends Component {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        border: '1px solid #EB5757',
+        borderRadius: '50px !important',
+        background: '#FAE1E2 !important',
       });
 
       return;
@@ -79,36 +67,41 @@ export class Searchbar extends Component {
         >
           {props => (
             <>
-              <Form className="form" onSubmit={this.handleSubmit}>
-                <Field
-                  className="input"
-                  name="searchQuery"
-                  type="text"
-                  autoComplete="off"
-                  autoFocus
-                  placeholder="Search images and photos"
-                  // value={props.values.searchQuery}
-                  value={searchQuery}
-                  onChange={this.handleChange}
-                  // onChange={e => this.handleChange(e)}
-                />
-                <button type="submit" className="button">
-                  <span className="button-label">Search</span>
-                  <SearchSvg />
-                </button>
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  style={{
-                    width: '5%',
-                    height: '5%',
-                    padding: '0px 16px',
-                    margin: '0px',
-                    position: 'top-right',
-                    color: 'red',
-                  }}
-                />
-              </Form>
+              <SearchbarStyled>
+                <SearchForm className="form" onSubmit={this.handleSubmit}>
+                  <SearchFormInput
+                    className="input"
+                    name="searchQuery"
+                    type="text"
+                    autoComplete="off"
+                    autoFocus
+                    placeholder="Search images and photos"
+                    // value={props.values.searchQuery}
+                    value={searchQuery}
+                    onChange={this.handleChange}
+                    // onChange={e => this.handleChange(e)}
+                  />
+                  <ErrorMessage name="searchQuery" />
+                  <SearchFormButton type="submit" className="button">
+                    <SearchFormButtonLabel className="button-label">
+                      Search
+                    </SearchFormButtonLabel>
+                    <SearchSvg />
+                  </SearchFormButton>
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    style={{
+                      width: '5%',
+                      height: '5%',
+                      padding: '0px 16px',
+                      margin: '0px',
+                      position: 'top-right',
+                      color: 'red',
+                    }}
+                  />
+                </SearchForm>
+              </SearchbarStyled>
             </>
           )}
         </Formik>
