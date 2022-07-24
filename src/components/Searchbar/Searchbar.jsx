@@ -1,22 +1,17 @@
 import { Formik, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Component } from 'react';
-import { ImSearch } from 'react-icons/im';
-import styled from 'styled-components';
 import {
+  SearchSvg,
   SearchbarStyled,
   SearchForm,
   SearchFormInput,
   SearchFormButtonLabel,
   SearchFormButton,
+  ToastContainerStyled,
 } from './Searchbar.styled';
-
-const SearchSvg = styled(ImSearch)`
-  width: 20px;
-  height: 20px;
-`;
 
 const initialValues = { searchQuery: '' };
 const schema = yup.object().shape({
@@ -43,7 +38,7 @@ export class Searchbar extends Component {
         progress: undefined,
         border: '1px solid #EB5757',
         borderRadius: '50px !important',
-        background: '#FAE1E2 !important',
+        background: 'pink !important',
       });
 
       return;
@@ -86,20 +81,20 @@ export class Searchbar extends Component {
                   </SearchFormButtonLabel>
                   <SearchSvg />
                 </SearchFormButton>
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  style={{
-                    width: '5%',
-                    height: '5%',
-                    padding: '0px 16px',
-                    margin: '0px',
-                    position: 'top-right',
-                    color: 'red',
-                  }}
-                />
               </SearchForm>
             </SearchbarStyled>
+            <ToastContainerStyled
+              // position="top-right"
+              autoClose={5000}
+              style={{
+                width: '5%',
+                height: '5%',
+                padding: '0px 16px',
+                margin: '0px',
+                position: 'top-right',
+                color: 'red',
+              }}
+            />
           </>
         </Formik>
       </>

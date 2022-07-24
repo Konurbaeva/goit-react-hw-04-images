@@ -1,5 +1,46 @@
 import styled from 'styled-components';
 import { Form, Field } from 'formik';
+import { ToastContainer } from 'react-toastify';
+import { ImSearch } from 'react-icons/im';
+
+export const SearchSvg = styled(ImSearch)`
+  width: 20px;
+  height: 20px;
+`;
+
+export const ToastContainerStyled = styled(ToastContainer)`
+  /* display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  background-color: #3e68ff;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  padding: 0.25em 0.75em;
+  min-width: 10ch;
+  min-height: 44px;
+  text-align: center;
+  line-height: 1.1;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer; */
+  position: relative;
+  min-height: 64px;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%), 0 2px 15px 0 rgb(0 0 0 / 5%);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  max-height: 800px;
+  overflow: hidden;
+  font-family: sans-serif;
+  cursor: pointer;
+  direction: ltr;
+`;
 
 export const SearchbarStyled = styled.header`
   top: 0;
@@ -16,8 +57,8 @@ export const SearchbarStyled = styled.header`
   padding-bottom: 12px;
   color: #fff;
   background-color: #3f51b5;
-  /* box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12); */
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
 export const SearchForm = styled(Form)`
