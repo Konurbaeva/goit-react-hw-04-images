@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Form, Field } from 'formik';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ImSearch } from 'react-icons/im';
 
 export const SearchSvg = styled(ImSearch)`
@@ -9,34 +10,16 @@ export const SearchSvg = styled(ImSearch)`
 `;
 
 export const ToastContainerStyled = styled(ToastContainer)`
-  /* display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: start;
-  background-color: #3e68ff;
-  border-radius: 8px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
-  padding: 0.25em 0.75em;
-  min-width: 10ch;
-  min-height: 44px;
-  text-align: center;
-  line-height: 1.1;
-  border: none;
-  margin-bottom: 1rem;
-  cursor: pointer; */
-  position: relative;
   min-height: 64px;
+  width: 264px;
   box-sizing: border-box;
   margin-bottom: 1rem;
   padding: 8px;
   border-radius: 4px;
-  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%), 0 2px 15px 0 rgb(0 0 0 / 5%);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  max-height: 800px;
-  overflow: hidden;
   font-family: sans-serif;
   cursor: pointer;
   direction: ltr;
@@ -67,7 +50,6 @@ export const SearchForm = styled(Form)`
   width: 100%;
   max-width: 600px;
   background-color: #fff;
-  /* border-radius: 3px; */
   overflow: hidden;
 `;
 

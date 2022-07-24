@@ -2,6 +2,7 @@ import { Formik, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Component } from 'react';
 import {
   SearchSvg,
@@ -28,17 +29,16 @@ export class Searchbar extends Component {
 
     if (this.state.searchQuery.trim() === '') {
       toast.error('The input field is empty!', {
-        autoClose: 2000,
-        // autoClose: true,
+        autoClose: true,
         position: 'top-right',
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
-        // draggable: true,
         progress: undefined,
         border: '1px solid #EB5757',
         borderRadius: '50px !important',
         background: 'pink !important',
+        theme: 'dark',
       });
 
       return;
@@ -83,18 +83,7 @@ export class Searchbar extends Component {
                 </SearchFormButton>
               </SearchForm>
             </SearchbarStyled>
-            <ToastContainerStyled
-              // position="top-right"
-              autoClose={5000}
-              style={{
-                width: '5%',
-                height: '5%',
-                padding: '0px 16px',
-                margin: '0px',
-                position: 'top-right',
-                color: 'red',
-              }}
-            />
+            <ToastContainerStyled />
           </>
         </Formik>
       </>
