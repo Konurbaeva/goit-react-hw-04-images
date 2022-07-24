@@ -35,12 +35,12 @@ export class App extends Component {
     }
   }
 
-  loadResults = () => {
+  async loadResults() {
     const { searchQuery, per_page, page } = this.state;
     this.setState({ isLoading: true });
 
     try {
-      fetchImagesWithQuery(searchQuery, per_page, page)
+      const results = await fetchImagesWithQuery(searchQuery, per_page, page)
         .then(hits => {
           this.setState(prevState => ({
             hits: page > 1 ? [...prevState.hits, ...hits] : hits,
@@ -54,10 +54,11 @@ export class App extends Component {
         .finally(() => {
           this.setState({ isLoading: false });
         });
+      return results;
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
   loadMore = () => {
     this.setState(prevState => ({
