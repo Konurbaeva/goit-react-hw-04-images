@@ -36,31 +36,6 @@ export class App extends Component {
     }
   }
 
-  // async loadResults() {
-  //   const { searchQuery, per_page, page } = this.state;
-  //   this.setState({ isLoading: true });
-
-  //   try {
-  //     const results = await fetchImagesWithQuery(searchQuery, per_page, page)
-  //       .then(hits => {
-  //         this.setState(prevState => ({
-  //           hits: page > 1 ? [...prevState.hits, ...hits] : hits,
-  //         }));
-  //       })
-  //       .catch(error =>
-  //         this.setState({
-  //           errorMsg: 'Error while loading data. Try again later.',
-  //         })
-  //       )
-  //       .finally(() => {
-  //         this.setState({ isLoading: false });
-  //       });
-  //     return results;
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
   async loadResults() {
     const { searchQuery, per_page, page } = this.state;
     this.setState({ isLoading: true });
@@ -88,8 +63,11 @@ export class App extends Component {
         );
         this.setState({ isLoading: false });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      this.setState({
+        isLoading: false,
+        error: error,
+      });
     }
   }
 

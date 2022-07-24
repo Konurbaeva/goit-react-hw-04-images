@@ -20,7 +20,6 @@ const SearchSvg = styled(ImSearch)`
 
 const initialValues = { searchQuery: '' };
 const schema = yup.object().shape({
-  // searchQuery: yup.string().required('Name is required.'),
   searchQuery: yup.string().required(),
 });
 
