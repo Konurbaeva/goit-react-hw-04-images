@@ -7,6 +7,7 @@ import { fetchImagesWithQuery } from './services/api';
 import Modal from 'components/Modal/Modal';
 
 import { Loader } from 'components/Loader/Loader';
+import { toast } from 'react-toastify';
 
 export class App extends Component {
   state = {
@@ -35,26 +36,58 @@ export class App extends Component {
     }
   }
 
+  // async loadResults() {
+  //   const { searchQuery, per_page, page } = this.state;
+  //   this.setState({ isLoading: true });
+
+  //   try {
+  //     const results = await fetchImagesWithQuery(searchQuery, per_page, page)
+  //       .then(hits => {
+  //         this.setState(prevState => ({
+  //           hits: page > 1 ? [...prevState.hits, ...hits] : hits,
+  //         }));
+  //       })
+  //       .catch(error =>
+  //         this.setState({
+  //           errorMsg: 'Error while loading data. Try again later.',
+  //         })
+  //       )
+  //       .finally(() => {
+  //         this.setState({ isLoading: false });
+  //       });
+  //     return results;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
   async loadResults() {
     const { searchQuery, per_page, page } = this.state;
     this.setState({ isLoading: true });
 
     try {
-      const results = await fetchImagesWithQuery(searchQuery, per_page, page)
-        .then(hits => {
-          this.setState(prevState => ({
-            hits: page > 1 ? [...prevState.hits, ...hits] : hits,
-          }));
-        })
-        .catch(error =>
-          this.setState({
-            errorMsg: 'Error while loading data. Try again later.',
-          })
-        )
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-      return results;
+      const images = await fetchImagesWithQuery(searchQuery, per_page, page);
+      if (images.length) {
+        this.setState(prevState => ({
+          hits: page > 1 ? [...prevState.hits, ...images] : images,
+        }));
+        this.setState({ isLoading: false });
+      } else {
+        toast.error(
+          `Sorry, there are no images matching your search query. Please try again.`,
+          {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+          }
+        );
+        this.setState({ isLoading: false });
+      }
     } catch (e) {
       console.log(e);
     }
