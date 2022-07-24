@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import { Button } from 'components/Button';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-import { Searchbar } from './components/Searchbar';
+// import { Searchbar } from './components/Searchbar';
+
+import Searchbar from './components/Searchbar/Searchbar';
 
 import { fetchImagesWithQuery } from './services/api';
 import Modal from 'components/Modal/Modal';
