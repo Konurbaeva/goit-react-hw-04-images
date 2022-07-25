@@ -1,7 +1,6 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'components/Button';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-// import { Searchbar } from './components/Searchbar';
 
 import Searchbar from './components/Searchbar/Searchbar';
 
@@ -9,106 +8,78 @@ import { fetchImagesWithQuery } from './services/api';
 import Modal from 'components/Modal/Modal';
 
 import { Loader } from 'components/Loader/Loader';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
-export class App extends Component {
-  state = {
-    hits: [],
-    searchQuery: '',
-    pictures: [],
-    totalHits: '',
-    page: 1,
-    errorMsg: '',
-    isLoading: false,
-    activeImg: null,
-  };
+export const App = () => {
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(7);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [hits, setHits] = useState([]);
+  const [currentPage, setCurrentPage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeImg, setActiveImg] = useState(null);
+  // const [totalHits, setTotalHits] = useState(null);
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevPage = prevState.page;
-    const nextPage = this.state.page;
-    const prevsearchQuery = prevState.searchQuery;
-    const searchQuery = this.state.searchQuery;
-
-    if (searchQuery === '') {
+  useEffect(() => {
+    if (!searchQuery) {
       return;
     }
 
-    if (prevPage !== nextPage || prevsearchQuery !== searchQuery) {
-      this.loadResults();
-    }
-  }
+    const fetchResults = () => {
+      setIsLoading(true);
 
-  async loadResults() {
-    const { searchQuery, per_page, page } = this.state;
-    this.setState({ isLoading: true });
+      // key: API_KEY,
+      // q: searchQuery,
+      // image_type: 'photo',
+      // orientation: 'horizontal',
+      // per_page: per_page,
+      // page: currentPage,
 
-    try {
-      const images = await fetchImagesWithQuery(searchQuery, per_page, page);
-      if (images.length) {
-        this.setState(prevState => ({
-          hits: page > 1 ? [...prevState.hits, ...images] : images,
-        }));
-        this.setState({ isLoading: false });
-      } else {
-        toast.error(
-          `Sorry, there are no images matching your search query. Please try again.`,
-          {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'dark',
-          }
-        );
-        this.setState({ isLoading: false });
-      }
-    } catch (error) {
-      this.setState({
-        isLoading: false,
-        error: error,
-      });
-    }
-  }
+      // &q=cat&image_type=photo&orientation=horizontal&per_page=8&page=1
+      // &q=%7B%22searchQuery%22:%22cat%22,%22currentPage%22:1%7D&image_type=photo&orientation=horizontal&per_page=8&page=1
 
-  loadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+      fetchImagesWithQuery({
+        searchQuery: searchQuery,
+        currentPage: currentPage,
+      })
+        .then(response => {
+          setHits(prevResults => [...prevResults, ...response]);
+        })
+        .catch(error => console.error(error))
+        .finally(() => setIsLoading(false));
+    };
+
+    fetchResults();
+  }, [currentPage, searchQuery]);
+
+  const loadMore = () => {
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
-  handleFormSubmit = searchQuery => {
-    this.setState({ searchQuery, page: 1 });
+  const handleFormSubmit = searchQuery => {
+    setSearchQuery(searchQuery);
+    setCurrentPage(1);
+    setHits([]);
   };
 
-  setActiveImg = activeImg => {
-    this.setState({
-      activeImg,
-    });
-  };
+  // setActiveImg = activeImg => {
+  //   setActiveImg(activeImg);
+  // };
 
-  render() {
-    const { hits, activeImg, isLoading } = this.state;
-    return (
-      <>
-        <Searchbar onSubmit={this.handleFormSubmit} />
-        {isLoading && <Loader />}
-        {hits.length > 0 && (
-          <ImageGallery images={hits} openModal={this.setActiveImg} />
-        )}
-
-        {hits.length > 0 && <Button onClick={this.loadMore} />}
-        {activeImg && (
-          <Modal
-            largeImageURL={activeImg}
-            onClose={() => this.setActiveImg(null)}
-          >
-            <img src={activeImg} alt="" />
-          </Modal>
-        )}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Searchbar onSubmit={handleFormSubmit} />
+      {isLoading && <Loader />}
+      {hits.length > 0 && (
+        <ImageGallery images={hits} openModal={() => setActiveImg(activeImg)} />
+      )}
+      {hits.length > 0 && <Button onClick={loadMore} />}
+      {activeImg && (
+        <Modal largeImageURL={activeImg} onClose={() => setActiveImg(null)}>
+          <img src={activeImg} alt="" />
+        </Modal>
+      )}
+    </>
+  );
+};
