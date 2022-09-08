@@ -28,6 +28,7 @@ const Modal = props => {
   return createPortal(
     <Backdrop onClick={handleBackdropClick}>
       <ModalContent>{props.children}</ModalContent>
+      <img src={props.largeImage} alt={props.description} />
     </Backdrop>,
     modalRoot
   );

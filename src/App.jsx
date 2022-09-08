@@ -16,8 +16,11 @@ export const App = () => {
   const [hits, setHits] = useState([]);
   const [currentPage, setCurrentPage] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [activeImg, setActiveImg] = useState(null);
+  // const [largeImage, setLargeImage] = useState(null);
   // const [totalHits, setTotalHits] = useState(null);
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     if (!searchQuery) {
@@ -40,6 +43,12 @@ export const App = () => {
   const loadMore = () => {
     setCurrentPage(prevPage => prevPage + 1);
   };
+  const toggleModal = () => setShowModal(!showModal);
+
+  const zoomImage = image => {
+    toggleModal();
+    setModalImage(image);
+  };
 
   const handleFormSubmit = searchQuery => {
     setSearchQuery(searchQuery);
@@ -53,13 +62,19 @@ export const App = () => {
       <Searchbar onSubmit={handleFormSubmit} />
       {isLoading && <Loader />}
       {hits.length > 0 && (
-        <ImageGallery images={hits} openModal={() => setActiveImg(activeImg)} />
+        <ImageGallery
+          images={hits}
+          // openModal={() => setLargeImage(largeImage)}
+          openModal={zoomImage}
+        />
       )}
       {hits.length > 0 && <Button onClick={loadMore} />}
-      {activeImg && (
-        <Modal largeImageURL={activeImg} onClose={() => setActiveImg(null)}>
-          <img src={activeImg} alt="" />
-        </Modal>
+      {showModal && (
+        <Modal
+          largeImageURL={modalImage}
+          onClose={toggleModal}
+          description={searchQuery}
+        />
       )}
     </>
   );
