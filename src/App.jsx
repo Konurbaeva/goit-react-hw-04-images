@@ -11,9 +11,9 @@ import { Loader } from 'components/Loader/Loader';
 // import { toast } from 'react-toastify';
 
 export const App = () => {
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(7);
-  const [errorMsg, setErrorMsg] = useState('');
+  // const [page, setPage] = useState(1);
+  // const [perPage, setPerPage] = useState(7);
+  // const [errorMsg, setErrorMsg] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [hits, setHits] = useState([]);
   const [currentPage, setCurrentPage] = useState();
@@ -62,10 +62,6 @@ export const App = () => {
     setCurrentPage(1);
     setHits([]);
   };
-
-  // setActiveImg = activeImg => {
-  //   setActiveImg(activeImg);
-  // };
 
   return (
     <>
