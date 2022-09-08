@@ -29,16 +29,6 @@ export const App = () => {
     const fetchResults = () => {
       setIsLoading(true);
 
-      // key: API_KEY,
-      // q: searchQuery,
-      // image_type: 'photo',
-      // orientation: 'horizontal',
-      // per_page: per_page,
-      // page: currentPage,
-
-      // &q=cat&image_type=photo&orientation=horizontal&per_page=8&page=1
-      // &q=%7B%22searchQuery%22:%22cat%22,%22currentPage%22:1%7D&image_type=photo&orientation=horizontal&per_page=8&page=1
-
       fetchImagesWithQuery({
         searchQuery: searchQuery,
         currentPage: currentPage,
