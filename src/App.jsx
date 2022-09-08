@@ -12,7 +12,7 @@ import { Loader } from 'components/Loader/Loader';
 
 export const App = () => {
   // const [page, setPage] = useState(1);
-  // const [perPage, setPerPage] = useState(7);
+  const [perPage, setPerPage] = useState(7);
   // const [errorMsg, setErrorMsg] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [hits, setHits] = useState([]);
@@ -28,11 +28,7 @@ export const App = () => {
 
     const fetchResults = () => {
       setIsLoading(true);
-
-      fetchImagesWithQuery({
-        searchQuery: searchQuery,
-        currentPage: currentPage,
-      })
+      fetchImagesWithQuery(searchQuery, perPage, currentPage)
         .then(response => {
           setHits(prevResults => [...prevResults, ...response]);
         })
@@ -41,7 +37,7 @@ export const App = () => {
     };
 
     fetchResults();
-  }, [currentPage, searchQuery]);
+  }, [currentPage, perPage, searchQuery]);
 
   const loadMore = () => {
     setCurrentPage(prevPage => prevPage + 1);
