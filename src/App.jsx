@@ -8,7 +8,6 @@ import { fetchImagesWithQuery } from './services/api';
 import Modal from 'components/Modal/Modal';
 
 import { Loader } from 'components/Loader/Loader';
-// import { toast } from 'react-toastify';
 
 export const App = () => {
   const [perPage, setPerPage] = useState(7);
@@ -16,8 +15,6 @@ export const App = () => {
   const [hits, setHits] = useState([]);
   const [currentPage, setCurrentPage] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  // const [largeImage, setLargeImage] = useState(null);
-  // const [totalHits, setTotalHits] = useState(null);
 
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState(null);
@@ -61,13 +58,7 @@ export const App = () => {
     <>
       <Searchbar onSubmit={handleFormSubmit} />
       {isLoading && <Loader />}
-      {hits.length > 0 && (
-        <ImageGallery
-          images={hits}
-          // openModal={() => setLargeImage(largeImage)}
-          openModal={zoomImage}
-        />
-      )}
+      {hits.length > 0 && <ImageGallery images={hits} openModal={zoomImage} />}
       {hits.length > 0 && <Button onClick={loadMore} />}
       {showModal && (
         <Modal
